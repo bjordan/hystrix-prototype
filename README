@@ -1,0 +1,1 @@
+Spring MVC controller prototype, simulating multiple parallel sub service requests using Netflix Hystrix libraries and rx Observables.
