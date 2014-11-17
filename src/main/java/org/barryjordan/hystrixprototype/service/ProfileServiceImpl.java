@@ -28,7 +28,7 @@ public class ProfileServiceImpl implements ProfileService {
         Observable<Balance> commandBalance = new BalanceCommand(userID).observe();
         // get level (title, level, progress/total to next level)
         Observable<UserLevel> commandUserLevel = new UserLevelCommand(userID).observe();
-        // fallback method is exucuted
+        // fallback method is executed
         Observable<String> commandFallback = new FallbackCommand().observe();
 
         return Observable.zip(
