@@ -8,7 +8,6 @@ public final class Profile {
     private final Balance balance;
     private final UserLevel userLevel;
 
-
     /**
      * Creates a new instance.
      *
