@@ -9,7 +9,6 @@ import org.barryjordan.hystrixprototype.model.Profile;
 import org.barryjordan.hystrixprototype.model.User;
 import org.barryjordan.hystrixprototype.model.UserLevel;
 import rx.Observable;
-import rx.functions.Func3;
 
 /**
  * ProfileService Implementation.
@@ -28,16 +27,13 @@ public class ProfileServiceImpl implements ProfileService {
         Observable<Balance> commandBalance = new BalanceCommand(userID).observe();
         // get level (title, level, progress/total to next level)
         Observable<UserLevel> commandUserLevel = new UserLevelCommand(userID).observe();
-        // fallback method is executed
+        // not used - just example of when fallback method is executed
         Observable<String> commandFallback = new FallbackCommand().observe();
 
         return Observable.zip(
                 commandUser, commandBalance, commandUserLevel,
-                new Func3<User, Balance, UserLevel, Profile>() {
-            @Override
-            public Profile call(User user, Balance balance, UserLevel userLevel) {
-                return new Profile(user, balance, userLevel);
-            }
-        }).toBlocking().first();
+                (User user, Balance balance, UserLevel userLevel) ->
+                { return new Profile(user, balance, userLevel); }
+        ).toBlocking().first();
     }
 }
